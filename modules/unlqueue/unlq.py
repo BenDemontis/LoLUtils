@@ -16,9 +16,9 @@ class unlqCog(commands.Cog):
     #async def help(ctx, *, flags: helpFlags):
     async def help(self, ctx, command):
         if(command=='test'):
-            await ctx.send(f'The command you wanted help with was {command}.\nThis command is to test hybrid command functionality.')
+            await ctx.reply(f'The command you wanted help with was {command}.\nThis command is to test hybrid command functionality.')
         else:
-            await ctx.send(f'The command you wanted help with was {command}.\nThis command is not currently recognised by the bot or has no help description.')
+            await ctx.reply(f'The command you wanted help with was {command}.\nThis command is not currently recognised by the bot or has no help description.')
 
 
 async def setup(bot):

@@ -33,7 +33,7 @@ async def test(ctx, *args):
 #Code to run upon bot being ready and logged in and setup
 @bot.event
 async def on_ready():
-    await bot.load_extension('unlq')
+    await bot.load_extension('modules.unlqueue.unlq')
     await bot.tree.sync(guild=None)
     print(f'We have logged in as {bot.user}')
 
