@@ -1,9 +1,8 @@
 import discord
-from discord import app_commands
-from discord.ext import commands
-from discord.ext import tasks
+from discord import app_commands, Interaction
+from discord.ext import commands, tasks
 
-
+import logging
 import dotenv
 import os
 import time
@@ -24,6 +23,14 @@ async def test(ctx, *args):
     arguments = ','.join(args)
     await ctx.send(f'{len(args)} arguments: {arguments}')
 
+@bot.command()
+async def sync(ctx, *args):
+    await bot.tree.sync(guild=None)
+    await ctx.send(f'bot commands synced')
+
+
+
+
 #Lookup guide for slash commands using discord.ext.commands
 #@bot.command(name='help2',description='provides help to the user')
 #async def help2(ctx, arg: str):
@@ -34,7 +41,7 @@ async def test(ctx, *args):
 @bot.event
 async def on_ready():
     await bot.load_extension('modules.unlqueue.unlq')
-    await bot.tree.sync(guild=None)
+    await bot.load_extension('modules.unlqueue.view')
     print(f'We have logged in as {bot.user}')
 
 
@@ -47,7 +54,8 @@ async def on_ready():
 #    if message.content.startswith('$hello'):
 #        await message.channel.send('Hello!')
 
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 
 
 #Runs the client using the discord bot token saved in the env variable.
-bot.run(os.getenv('DISCORD_TOKEN'))
+bot.run(os.getenv('DISCORD_TOKEN'),log_handler=handler, log_level=logging.DEBUG)
