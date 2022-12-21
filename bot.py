@@ -18,11 +18,15 @@ intents.message_content = True
 #Creates a discord client instance
 bot = commands.Bot(command_prefix='$', intents=intents)
 
+
+#Test text command that counts number of arguments
 @bot.command()
 async def test(ctx, *args):
     arguments = ','.join(args)
     await ctx.send(f'{len(args)} arguments: {arguments}')
 
+
+#Syncs the command tree to discord servers
 @bot.command()
 async def sync(ctx, *args):
     await bot.tree.sync(guild=None)
@@ -40,7 +44,9 @@ async def sync(ctx, *args):
 #Code to run upon bot being ready and logged in and setup
 @bot.event
 async def on_ready():
+    #Loads unlq extension (implements queue app command for testing)
     await bot.load_extension('modules.unlqueue.unlq')
+    #Loads view extension/cog for view testing for possible outputs
     await bot.load_extension('modules.unlqueue.view')
     print(f'We have logged in as {bot.user}')
 
@@ -54,6 +60,8 @@ async def on_ready():
 #    if message.content.startswith('$hello'):
 #        await message.channel.send('Hello!')
 
+
+#Logging handler to output logfiles with detailed info.
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 
 
